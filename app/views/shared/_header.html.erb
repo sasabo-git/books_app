@@ -1,0 +1,7 @@
+<header>
+  <% if I18n.locale.to_s == "en" %>
+    <%= link_to('日本語サイト', :locale => 'ja') %>
+    <% else %>
+    <%= link_to('English site', :locale => 'en') %>
+  <% end %>
+</header>

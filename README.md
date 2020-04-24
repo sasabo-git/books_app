@@ -1,24 +1,7 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Japanease Site: [locallhost:3000/ja/books](locallhost:3000/ja/books)
+English Site: [locallhost:3000/en/books](locallhost:3000/en/books)
 
-Things you may want to cover:
+[locallhost:3000/ja/books](locallhost:3000/books) is japanese site.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

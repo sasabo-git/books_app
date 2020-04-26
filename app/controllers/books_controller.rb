@@ -45,8 +45,11 @@ class BooksController < ApplicationController
 
   # DELETE /books/1
   def destroy
-    @book.destroy
-    redirect_to books_url, notice: I18n.t("notice.destroy")
+    if @book.destroy
+      redirect_to books_url, notice: I18n.t("notice.destroy")
+    else
+      redirect_to books_url
+    end
   end
 
   private

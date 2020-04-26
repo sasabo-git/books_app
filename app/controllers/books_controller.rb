@@ -34,8 +34,6 @@ class BooksController < ApplicationController
 
   # PATCH/PUT /books/1
   def update
-    #   end
-    # end
     if @book.update(book_params)
       redirect_to @book, notice: I18n.t("notice.update")
     else

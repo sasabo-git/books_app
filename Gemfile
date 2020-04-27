@@ -57,3 +57,6 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # upload picture
 gem "carrierwave"
+
+# paginator
+gem "kaminari"

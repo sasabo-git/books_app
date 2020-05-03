@@ -2,10 +2,11 @@
 
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
+  NUMBER_PER_PAGE = 3
 
   # GET /books
   def index
-    @books = Book.all
+    @books = Book.page(params[:page]).per(NUMBER_PER_PAGE)
   end
 
   # GET /books/1

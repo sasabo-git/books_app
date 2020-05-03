@@ -17,6 +17,7 @@ module BooksApp
       g.test_framework false
       g.helper false
       g.javascripts false
+      g.stylesheets false
     end
 
     config.i18n.default_locale = :ja

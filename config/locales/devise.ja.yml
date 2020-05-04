@@ -3,6 +3,7 @@ ja:
     show:
       profile: プロフィール
       name: 名前
+      avatar: プロフィール画像
       introduction: 自己紹介
       zip_code: 郵便番号
       address: 住所

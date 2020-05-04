@@ -1,5 +1,10 @@
 <h1><%= t(".profile")%></h1>
+
 <p><%= t(".name")%>: <%= @user.username %></p>
+<p>
+  <%= t(".avatar")%>:</br>
+  <%= image_tag @user.avatar if @user.avatar.attached? %>
+</p>
 <p><%= t(".introduction")%>: <%= @user.introduction %></p>
 <p><%= t(".zip_code")%>: <%= @user.zip %></p>
 <p><%= t(".address")%>: <%= @user.address %></p>

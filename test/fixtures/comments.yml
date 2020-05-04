@@ -1,0 +1,12 @@
+alice_comment_for_bob_book:
+  id: 1
+  body: good!
+  user_id: 1
+  commentable_type: Book
+  commentable_id: 2
+alice_comment_for_bob_report:
+  id: 2
+  body: OK!
+  user_id: 1
+  commentable_type: Report
+  commentable_id: 2

@@ -19,7 +19,7 @@ ja:
     index:
       home: ホーム
   link:
-    new book: 本の登録
+    new_book: 本の登録
     new_report: 新規レポートの登録
     show: 表示
     edit: 編集
@@ -41,6 +41,8 @@ ja:
     create: 登録に失敗しました。
     destroy: 削除に失敗しました。
   reports:
+    show:
+     report_information: レポートの情報
     new:
      new_report: 新規レポート
     edit:
@@ -48,3 +50,10 @@ ja:
   comments:
     edit:
       editing_comment: コメントの編集
+  books:
+    new:
+      new_book: 本の登録
+    edit:
+      editing_book: 本の編集
+    show:
+      book_information: 本の情報

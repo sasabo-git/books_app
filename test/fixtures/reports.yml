@@ -1,0 +1,12 @@
+alice_report:
+  id: 1
+  title: Rubyを勉強しました
+  user_id: 1
+bob_report:
+  id: 2
+  title: Railsを勉強！
+  user_id: 2
+carol_report:
+  id: 3
+  title: Vimについて
+  user_id: 3

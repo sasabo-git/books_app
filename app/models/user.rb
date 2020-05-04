@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable,
          authentication_keys: [:login], omniauth_providers: %i[github]
-  validate :validate_username
+  validates_format_of :username, with: /^[a-zA-Z0-9_\.\-]*$/, multiline: true
   has_one_attached :avatar
 
   has_many :active_relationships, class_name:  "Relationship",
@@ -16,17 +16,12 @@ class User < ApplicationRecord
                                    foreign_key: "followed_id",
                                    dependent:   :destroy
   has_many :followers, through: :passive_relationships, source: :follower
+
   has_many :books, dependent: :destroy
   has_many :reports, dependent: :destroy
   has_many :comments, dependent: :destroy
 
   attr_writer :login
-
-  def validate_username
-    if User.where(email: username).exists?
-      errors.add(:username, :invalid)
-    end
-  end
 
   def login
     @login || self.username || self.email
@@ -72,9 +67,6 @@ class User < ApplicationRecord
       uri = URI.parse(image_url)
       image = uri.open
       user.avatar.attach(io: image, filename: "#{user.username}_profile.png")
-      # If you are using confirmable and the provider(s) you use validate emails,
-      # uncomment the line below to skip the confirmation emails.
-      # user.skip_confirmation!
     end
   end
 

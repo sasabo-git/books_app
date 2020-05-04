@@ -1,7 +1,7 @@
 <div class="book_content">
   <p>
     <strong><%= User.human_attribute_name :username %>:</strong>
-    <%= link_to @user.username, user_path(@book.user) %>
+    <%= link_to @user.username, @book.user %>
   </p>
   <p>
     <strong><%= Book.human_attribute_name :title %>:</strong>
@@ -28,3 +28,10 @@
 
   <p><%= link_to t('link.go_to_books'), books_path %></p>
 </div>
+
+<%= render partial: "comments/comment", locals: {commentable: @book} %>
+<% if user_signed_in? %>
+  <%= render partial: "comments/form", locals: {commentable: @book, comment: Comment.new} %>
+<% end %>
+
+<%= link_to t('link.go_to_books'), books_path %>

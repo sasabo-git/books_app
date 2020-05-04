@@ -15,8 +15,32 @@
       <tbody>
         <% @feed_books.each do |book| %>
           <tr>
-            <td><%= link_to book.user.username, user_path(book.user), class: 'navbar-link' %></td>
+            <td><%= link_to book.user.username, book.user, class: 'navbar-link' %></td>
             <td><%= link_to book.title, book_path(book), class: 'navbar-link' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>
+
+<div class="feed">
+  <%  if user_signed_in? %>
+    <h2><%= Report.model_name.human %></h2>
+    <table>
+      <thead>
+        <tr>
+          <th><%= User.human_attribute_name :username %></th>
+          <th><%= Report.human_attribute_name :title %></th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @feed_reports.each do |report| %>
+          <tr>
+            <td><%= link_to report.user.username, report.user, class: 'navbar-link' %></td>
+            <td><%= link_to report.title, report_path(report), class: 'navbar-link' %></td>
           </tr>
         <% end %>
       </tbody>

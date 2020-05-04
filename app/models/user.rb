@@ -17,6 +17,8 @@ class User < ApplicationRecord
                                    dependent:   :destroy
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :books, dependent: :destroy
+  has_many :reports, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   attr_writer :login
 
@@ -43,11 +45,8 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
-  # 自分とフォローしている人のBooksを返す
-  def feed_books
-    following_ids = "SELECT followed_id FROM relationships
-                     WHERE  follower_id = :user_id"
-    Book.where("user_id IN (#{following_ids})
+  def feed(book_or_report)
+    book_or_report.where("user_id IN (#{following_ids})
                      OR user_id = :user_id", user_id: id)
   end
 
@@ -78,4 +77,9 @@ class User < ApplicationRecord
       # user.skip_confirmation!
     end
   end
+
+  private
+    def following_ids
+      "SELECT followed_id FROM relationships WHERE follower_id = :user_id"
+    end
 end

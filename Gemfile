@@ -61,5 +61,12 @@ gem "carrierwave"
 # paginator
 gem "kaminari"
 
+# user authentication
 gem "devise"
 gem "devise-i18n"
+
+# github authentication
+gem "omniauth-github", github: "omniauth/omniauth-github", branch: "master"
+
+# load environment variables from `.env`
+gem "dotenv-rails"

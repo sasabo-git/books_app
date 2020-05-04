@@ -1,14 +1,23 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable,
          authentication_keys: [:login], omniauth_providers: %i[github]
   validate :validate_username
-  has_many :books
   has_one_attached :avatar
+
+  # following（ユーザーがフォローしている人）との関連付け
+  has_many :active_relationships, class_name:  "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent:   :destroy # ユーザーを削除したらリレーションシップも同時に削除
+  has_many :following, through: :active_relationships, source: :followed
+  # followerとの関連付け
+  has_many :passive_relationships, class_name:  "Relationship",
+                                   foreign_key: "followed_id",
+                                   dependent:   :destroy # ユーザーを削除したらリレーションシップも同時に削除
+  has_many :followers, through: :passive_relationships, source: :follower
+  has_many :books, dependent: :destroy
 
   attr_writer :login
 
@@ -20,6 +29,27 @@ class User < ApplicationRecord
 
   def login
     @login || self.username || self.email
+  end
+
+  def follow(other_user)
+    active_relationships.create(followed_id: other_user.id)
+  end
+
+  def unfollow(other_user)
+    active_relationships.find_by(followed_id: other_user.id).destroy
+  end
+
+  # 現在のユーザーがフォローしてたらtrueを返す
+  def following?(other_user)
+    following.include?(other_user)
+  end
+
+  # 自分とフォローしている人のBooksを返す
+  def feed_books
+    following_ids = "SELECT followed_id FROM relationships
+                     WHERE  follower_id = :user_id"
+    Book.where("user_id IN (#{following_ids})
+                     OR user_id = :user_id", user_id: id)
   end
 
   def self.find_first_by_auth_conditions(warden_conditions)

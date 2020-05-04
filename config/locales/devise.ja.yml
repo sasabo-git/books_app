@@ -7,6 +7,10 @@ ja:
       introduction: 自己紹介
       zip_code: 郵便番号
       address: 住所
+    follow:
+      follow: フォロー
+    unfollow:
+      unfollow: フォロー解除
     registrations:
       destroyed: アカウントを削除しました。またのご利用をお待ちしております。
       edit:

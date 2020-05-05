@@ -14,8 +14,7 @@ class BooksController < ApplicationController
 
   # GET /books/1
   def show
-    @book = Book.find_by(id: params[:id])
-    @user = User.find_by(id: @book.user_id)
+    @user = User.find(@book.user_id)
   end
 
   # GET /books/new
@@ -71,7 +70,7 @@ class BooksController < ApplicationController
     end
 
     def ensure_correct_user
-      @book = Book.find_by(id: params[:id])
+      @book = Book.find(params[:id])
       unless @book.user_id == current_user.id
         redirect_to books_path, notice: I18n.t("notice.no_authority")
       end

@@ -1,12 +1,4 @@
 ja:
-  activerecord:
-    attributes:
-      user:
-        username: ユーザー名
-        username_or_email: ユーザー名もしくはメールアドレス
-        introduction: 自己紹介
-        zip_code: 郵便番号
-        address: 住所
   users:
     show:
       profile: プロフィール
@@ -38,5 +30,6 @@ ja:
       already_signed_out: 既にログアウト済みです。
       new:
         sign_in: ログイン
+        username_or_email: ユーザー名もしくはメールアドレス
       signed_in: ログインしました。
       signed_out: ログアウトしました。

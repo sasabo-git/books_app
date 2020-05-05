@@ -7,6 +7,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          authentication_keys: [:login]
   validate :validate_username
+  has_many :books
 
   attr_writer :login
 

@@ -3,7 +3,7 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:edit, :update, :destroy, :new, :create]
-  before_action :ensure_correct_user, { only: [:edit, :update, :destroy] }
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   NUMBER_PER_PAGE = 3
 
@@ -70,8 +70,7 @@ class BooksController < ApplicationController
     end
 
     def ensure_correct_user
-      @book = Book.find(params[:id])
-      unless @book.user_id == current_user.id
+      if current_user.books.find_by(id: params[:id]).nil?
         redirect_to books_path, notice: I18n.t("notice.no_authority")
       end
     end

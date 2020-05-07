@@ -2,6 +2,9 @@
 
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:edit, :update, :destroy, :new, :create]
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+
   NUMBER_PER_PAGE = 3
 
   # GET /books
@@ -11,6 +14,7 @@ class BooksController < ApplicationController
 
   # GET /books/1
   def show
+    @user = User.find(@book.user_id)
   end
 
   # GET /books/new
@@ -24,7 +28,10 @@ class BooksController < ApplicationController
 
   # POST /books
   def create
-    @book = Book.new(book_params)
+    @book = Book.new(
+      **book_params,
+      user_id: current_user.id
+    )
 
     if @book.save
       redirect_to @book, notice: I18n.t("notice.create")
@@ -60,5 +67,11 @@ class BooksController < ApplicationController
     # Only allow a list of trusted parameters through.
     def book_params
       params.require(:book).permit(:title, :memo, :author, :picture)
+    end
+
+    def ensure_correct_user
+      if current_user.books.find_by(id: params[:id]).nil?
+        redirect_to books_path, notice: I18n.t("notice.no_authority")
+      end
     end
 end

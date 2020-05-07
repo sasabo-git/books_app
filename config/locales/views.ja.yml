@@ -1,4 +1,17 @@
 ja:
+  shared:
+    header:
+      profile: プロフィール
+      edit_profile: プロフィールの編集
+      sign_up: アカウント登録
+      sign_in: ログイン
+      sign_up: アカウント登録
+      logout: ログアウト
+      log_in_now: さんログイン中
+  top:
+    index:
+      welcome: ようこそ
+      go_to_library: 書庫へ
   link:
     new book: 本の登録
     show: 表示
@@ -14,4 +27,4 @@ ja:
     create: 本を登録しました。
     update: 本を更新しました。
     destroy: 本を削除しました。
-    
+    no_authority: 権限がありません

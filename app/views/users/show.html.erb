@@ -1,0 +1,8 @@
+<h1><%= t(".profile")%></h1>
+<p><%= t(".name")%>: <%= @user.username %></p>
+<p><%= t(".introduction")%>: <%= @user.introduction %></p>
+<p><%= t(".zip_code")%>: <%= @user.zip %></p>
+<p><%= t(".address")%>: <%= @user.address %></p>
+
+<%= link_to t('link.back'), books_path %>
+

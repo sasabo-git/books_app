@@ -33,3 +33,12 @@ ja:
         username_or_email: ユーザー名もしくはメールアドレス
       signed_in: ログインしました。
       signed_out: ログアウトしました。
+    shared:
+      links:
+        back: 戻る
+        didn_t_receive_confirmation_instructions: アカウント確認のメールを受け取っていませんか?
+        didn_t_receive_unlock_instructions: アカウントの凍結解除方法のメールを受け取っていませんか?
+        forgot_your_password: パスワードを忘れましたか?
+        sign_in: ログイン
+        sign_in_with_provider: "%{provider}でログイン"
+        sign_up: アカウント登録

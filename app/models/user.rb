@@ -6,9 +6,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable,
          authentication_keys: [:login], omniauth_providers: %i[github]
-
   validate :validate_username
   has_many :books
+  has_one_attached :avatar
 
   attr_writer :login
 
@@ -40,7 +40,10 @@ class User < ApplicationRecord
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
       user.username = auth.info.name
-      # user.image = auth.info.image
+      image_url = auth.info.image
+      uri = URI.parse(image_url)
+      image = uri.open
+      user.avatar.attach(io: image, filename: "#{user.username}_profile.png")
       # If you are using confirmable and the provider(s) you use validate emails,
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!

@@ -1,7 +1,7 @@
 <h1><%= t('.profile')%></h1>
 
-<%= render 'shared/stats' %>
-<%= render 'follow_form' if user_signed_in? %>
+<%= render 'shared/stats', user: @user %>
+<%= render 'follow_form', user: @user if user_signed_in? %>
 
 <p><%= t('.name')%>: <%= @user.username %></p>
 <p>

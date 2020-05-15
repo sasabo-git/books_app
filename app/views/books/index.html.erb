@@ -19,7 +19,7 @@
         <td><%= book.author %></td>
         <td><%= book.picture %></td>
         <td><%= link_to t('link.show'), book %></td>
-        <% if user_signed_in? && book.user_id == current_user.id %>
+        <% if book.user == current_user %>
           <td><%= link_to t('link.edit'), edit_book_path(book) %></td>
           <td><%= link_to t('link.destroy'), book, method: :delete, data: { confirm: t('confirm') } %></td>
         <% end %>

@@ -11,6 +11,9 @@ ja:
       follow: フォロー
     unfollow:
       unfollow: フォロー解除
+    show_follow:
+      following: フォロー中
+      followers: フォロワー
     registrations:
       destroyed: アカウントを削除しました。またのご利用をお待ちしております。
       edit:

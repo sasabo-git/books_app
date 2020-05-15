@@ -1,8 +1,16 @@
-<h1><%= @user.username %> <%= @title %></h1>
+<h1>
+  <%= @user.username %>
+  <% case controller.action_name %>
+  <% when "following" %>
+    <%= t('.following') %>
+  <% when "followers" %>
+    <%= t('.followers') %>
+  <% end %>
+</h1>
 
 <ul>
   <% @users.each do |user| %>
-   <li><%= link_to "#{user.username}",user_path(id: user.id), class: 'navbar-link' %> </li>
+   <li><%= link_to user.username, user_path(user), class: 'navbar-link' %> </li>
   <% end %>
 </ul>
 

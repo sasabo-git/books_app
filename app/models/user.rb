@@ -7,15 +7,14 @@ class User < ApplicationRecord
   validate :validate_username
   has_one_attached :avatar
 
-  # following（ユーザーがフォローしている人）との関連付け
   has_many :active_relationships, class_name:  "Relationship",
                                   foreign_key: "follower_id",
-                                  dependent:   :destroy # ユーザーを削除したらリレーションシップも同時に削除
+                                  dependent:   :destroy
   has_many :following, through: :active_relationships, source: :followed
-  # followerとの関連付け
+
   has_many :passive_relationships, class_name:  "Relationship",
                                    foreign_key: "followed_id",
-                                   dependent:   :destroy # ユーザーを削除したらリレーションシップも同時に削除
+                                   dependent:   :destroy
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :books, dependent: :destroy
 

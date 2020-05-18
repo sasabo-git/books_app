@@ -1,4 +1,5 @@
 ja:
+  go_to_library: 書庫へ
   shared:
     header:
       profile: プロフィール
@@ -8,16 +9,21 @@ ja:
       sign_up: アカウント登録
       logout: ログアウト
       log_in_now: さんログイン中
+      home: ホーム
+      books: 本
+    stats:
+      following: フォロー中
+      followers: フォロワー
   top:
     index:
-      welcome: ようこそ
-      go_to_library: 書庫へ
+      home: ホーム
   link:
     new book: 本の登録
     show: 表示
     edit: 編集
     destroy: 削除
     back: 前画面
+    go_to_books: 本一覧へ
   heading:
     books: 本の一覧
     new book: 本の登録

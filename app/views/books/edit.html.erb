@@ -3,4 +3,4 @@
 <%= render 'form', book: @book %>
 
 <%= link_to t('link.show'), @book %> |
-<%= link_to t('link.back'), books_path %>
+<%= link_to t('link.destroy'), @book, method: :delete, data: { confirm: t('confirm') } %>

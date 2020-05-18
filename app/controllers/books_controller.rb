@@ -28,10 +28,7 @@ class BooksController < ApplicationController
 
   # POST /books
   def create
-    @book = Book.new(
-      **book_params,
-      user_id: current_user.id
-    )
+    @book = current_user.books.new(book_params)
 
     if @book.save
       redirect_to @book, notice: I18n.t("notice.create")

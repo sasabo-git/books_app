@@ -7,13 +7,18 @@
 
   <p class="navbar-text pull-right">
     <% if user_signed_in? %>
-      <strong><%= current_user.username %></strong> <%= t(".log_in_now") %></br>
-      <%= link_to t('.profile'), users_show_path, class: 'navbar-link' %> |
+      <strong><%= current_user.username %></strong>
+      <%= t('.log_in_now') %></br>
+    <% end %>
+    <%= link_to t('.home'), root_path, class: 'navbar-link' %> |
+    <%= link_to t('.books'), books_path, class: 'navbar-link' %> |
+    <% if user_signed_in? %>
+      <%= link_to t('.profile'), user_path(id: current_user.id), class: 'navbar-link' %> |
       <%= link_to t('.edit_profile'), edit_user_registration_path, class: 'navbar-link' %> |
-      <%= link_to t(".logout"), destroy_user_session_path, method: :delete, class: 'navbar-link'  %>
+      <%= link_to t('.logout'), destroy_user_session_path, method: :delete, class: 'navbar-link'  %>
     <% else %>
-      <%= link_to t(".sign_up"), new_user_registration_path, class: 'navbar-link'  %> |
-      <%= link_to t(".sign_in"), new_user_session_path, class: 'navbar-link'  %>
+      <%= link_to t('.sign_up'), new_user_registration_path, class: 'navbar-link'  %> |
+      <%= link_to t('.sign_in'), new_user_session_path, class: 'navbar-link'  %>
     <% end %>
   </p>
 </header>

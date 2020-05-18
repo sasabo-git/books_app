@@ -1,7 +1,7 @@
 <h1><%= t('.home') %></h1>
 
 <div class="feed">
-  <%  if user_signed_in? %>
+  <% if user_signed_in? %>
     <h2><%= Book.model_name.human %></h2>
     <table>
       <thead>
@@ -15,8 +15,8 @@
       <tbody>
         <% @feed_books.each do |book| %>
           <tr>
-            <td><%= link_to book.user.username, user_path(book.user), class: 'navbar-link' %> </td>
-            <td><%= link_to book.title, book_path(book), class: 'navbar-link' %> </td>
+            <td><%= link_to book.user.username, user_path(book.user), class: 'navbar-link' %></td>
+            <td><%= link_to book.title, book_path(book), class: 'navbar-link' %></td>
           </tr>
         <% end %>
       </tbody>

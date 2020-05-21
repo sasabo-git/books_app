@@ -46,7 +46,7 @@ class User < ApplicationRecord
   end
 
   def feed(book_or_report)
-    book_or_report.where("user_id IN (#{following_ids})
+    book_or_report.where("user_id IN (#{following_ids_subquery})
                      OR user_id = :user_id", user_id: id)
   end
 
@@ -79,7 +79,7 @@ class User < ApplicationRecord
   end
 
   private
-    def following_ids
+    def following_ids_subquery
       "SELECT followed_id FROM relationships WHERE follower_id = :user_id"
     end
 end

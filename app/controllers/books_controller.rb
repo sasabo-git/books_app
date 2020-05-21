@@ -31,7 +31,7 @@ class BooksController < ApplicationController
     @book = current_user.books.new(book_params)
 
     if @book.save
-      redirect_to @book, notice: I18n.t("notice.create")
+      redirect_to @book, notice: t("notice.create")
     else
       render :new
     end
@@ -40,7 +40,7 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   def update
     if @book.update(book_params)
-      redirect_to @book, notice: I18n.t("notice.update")
+      redirect_to @book, notice: t("notice.update")
     else
       render :edit
     end
@@ -49,7 +49,7 @@ class BooksController < ApplicationController
   # DELETE /books/1
   def destroy
     if @book.destroy
-      redirect_to books_url, notice: I18n.t("notice.destroy")
+      redirect_to books_url, notice: t("notice.destroy")
     else
       redirect_to books_url
     end
@@ -68,7 +68,7 @@ class BooksController < ApplicationController
 
     def ensure_correct_user
       if current_user.books.find_by(id: params[:id]).nil?
-        redirect_to books_path, notice: I18n.t("notice.no_authority")
+        redirect_to books_path, notice: t("notice.no_authority")
       end
     end
 end

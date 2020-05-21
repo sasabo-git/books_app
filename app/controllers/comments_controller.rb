@@ -14,16 +14,16 @@ class CommentsController < ApplicationController
     @comment = @commentable.comments.new(comment_params)
     @comment.user_id = current_user.id
     if @comment.save
-      redirect_to @commentable, notice: I18n.t("notice.create")
+      redirect_to @commentable, notice: t("notice.create")
     else
-      redirect_to @commentable, alert: I18n.t("alert.create")
+      redirect_to @commentable, alert: t("alert.create")
     end
   end
 
   # PATCH/PUT /comments/1
   def update
     if @comment.update(comment_params)
-      redirect_to @commentable, notice: I18n.t("notice.update")
+      redirect_to @commentable, notice: t("notice.update")
     else
       render :edit
     end
@@ -32,9 +32,9 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   def destroy
     if @comment.destroy
-      redirect_to @commentable, notice: I18n.t("notice.destroy")
+      redirect_to @commentable, notice: t("notice.destroy")
     else
-      redirect_to @commentable, alert: I18n.t("alert.destroy")
+      redirect_to @commentable, alert: t("alert.destroy")
     end
   end
 
@@ -49,7 +49,7 @@ class CommentsController < ApplicationController
 
     def ensure_correct_user
       if current_user.comments.find_by(id: params[:id]).nil?
-        redirect_to @commentable, notice: I18n.t("notice.no_authority")
+        redirect_to @commentable, notice: t("notice.no_authority")
       end
     end
 end

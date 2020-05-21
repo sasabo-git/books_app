@@ -30,7 +30,7 @@ class ReportsController < ApplicationController
   def create
     @report = current_user.reports.new(report_params)
     if @report.save
-      redirect_to @report, notice: I18n.t("notice.create")
+      redirect_to @report, notice: t("notice.create")
     else
       render :new
     end
@@ -39,7 +39,7 @@ class ReportsController < ApplicationController
   # PATCH/PUT /reports/1
   def update
     if @report.update(report_params)
-      redirect_to @report, notice: I18n.t("notice.update")
+      redirect_to @report, notice: t("notice.update")
     else
       render :edit
     end
@@ -48,7 +48,7 @@ class ReportsController < ApplicationController
   # DELETE /reports/1
   def destroy
     if @report.destroy
-      redirect_to reports_url, notice: I18n.t("notice.destroy")
+      redirect_to reports_url, notice: t("notice.destroy")
     else
       redirect_to reports_url
     end
@@ -65,7 +65,7 @@ class ReportsController < ApplicationController
 
     def ensure_correct_user
       if current_user.reports.find_by(id: params[:id]).nil?
-        redirect_to reports_path, notice: I18n.t("notice.no_authority")
+        redirect_to reports_path, notice: t("notice.no_authority"
       end
     end
 end

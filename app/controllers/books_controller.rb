@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :edit, :update, :destroy]
+  include ResourceSetter
+
+  before_action :set_resource, only: [:show]
+  before_action :set_my_resource, only: [:edit, :update, :destroy]
   before_action :authenticate_user!, only: [:edit, :update, :destroy, :new, :create]
-  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   NUMBER_PER_PAGE = 3
 
@@ -56,19 +58,7 @@ class BooksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_book
-      @book = Book.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
     def book_params
       params.require(:book).permit(:title, :memo, :author, :picture)
-    end
-
-    def ensure_correct_user
-      if current_user.books.find_by(id: params[:id]).nil?
-        redirect_to books_path, notice: t("notice.no_authority")
-      end
     end
 end

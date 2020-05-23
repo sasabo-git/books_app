@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class ReportsController < ApplicationController
-  before_action :set_report, only: [:show, :edit, :update, :destroy, :set_id]
+  include ResourceSetter
+
+  before_action :set_resource, only: [:show]
+  before_action :set_my_resource, only: [:edit, :update, :destroy]
   before_action :authenticate_user!, only: [:edit, :update, :destroy, :new, :create]
-  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   NUMBER_PER_PAGE = 10
 
@@ -55,17 +57,7 @@ class ReportsController < ApplicationController
   end
 
   private
-    def set_report
-      @report = Report.find(params[:id])
-    end
-
     def report_params
       params.require(:report).permit(:title, :body)
-    end
-
-    def ensure_correct_user
-      if current_user.reports.find_by(id: params[:id]).nil?
-        redirect_to reports_path, notice: t("notice.no_authority"
-      end
     end
 end

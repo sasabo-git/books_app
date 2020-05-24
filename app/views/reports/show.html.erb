@@ -1,0 +1,26 @@
+<div class="report_content">
+  <h2><%= Report.model_name.human %></h2>
+
+  <h3><%= @report.title %></h3>
+
+  <p>
+    <%= User.human_attribute_name :username %>:
+    <%= link_to @user.username, @user %>
+  </p>
+  <p><%= @report.body %></p>
+  <% if @report.user == current_user %>
+    <p>
+    <%= link_to t('link.edit'), edit_report_path(@report) %>
+    <%= link_to t('link.destroy'), @report, method: :delete, data: { confirm: t('confirm') } %>
+    </p>
+  <% end %>
+
+  <p><%= link_to t('link.go_to_reports'), reports_path %></p>
+</div>
+
+<%= render partial: "comments/comment", locals: {commentable: @report} %>
+<% if user_signed_in? %>
+  <%= render partial: "comments/form", locals: {commentable: @report, comment: Comment.new} %>
+<% end %>
+
+<%= link_to t('link.go_to_reports'), reports_path %>

@@ -8,12 +8,18 @@ Rails.application.routes.draw do
     omniauth_callbacks: "users/omniauth_callbacks"
   }
 
-  resources :users, only: [:show, :following, :followers] do
-    member { get :following, :followers }
-  end
-  resources :relationships, only: [:create, :destroy]
-
   scope "(:locale)", locale: /ja|en/ do
-    resources :books
+    resources :users, only: [:show, :following, :followers] do
+      member { get :following, :followers }
+    end
+    resources :relationships, only: [:create, :destroy]
+
+    resources :books do
+      resources :comments, only: [:create, :edit, :destroy, :update], module: :books
+    end
+
+    resources :reports do
+      resources :comments, only: [:create, :edit, :destroy, :update], module: :reports
+    end
   end
 end

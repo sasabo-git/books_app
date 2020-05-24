@@ -1,0 +1,19 @@
+<div class="comment_area">
+  <h2><%= Comment.model_name.human %></h2>
+
+  <% commentable.comments.each do |comment| %>
+    <% if comment.body %>
+      <div class="comment">
+        <strong><%= comment.user.username %></strong>
+        <br />
+        <p><%= comment.body %></p>
+        <% if comment.user == current_user %>
+          <p>
+            <%= link_to t('link.edit'), [:edit, commentable, comment] %> |
+            <%= link_to t('link.destroy'), [commentable, comment], method: :delete, data: { confirm: t('confirm') } %>
+          </p>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

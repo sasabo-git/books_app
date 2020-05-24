@@ -1,0 +1,30 @@
+<h1><%= Report.model_name.human %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= User.human_attribute_name :username %></th>
+      <th><%= Report.human_attribute_name :title %></th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reports.each do |report| %>
+      <tr>
+        <td><%= link_to report.user.username, report.user, class: 'navbar-link' %></td>
+        <td><%= link_to report.title, report_path(report), class: 'navbar-link' %></td>
+        <% if report.user == current_user %>
+          <td><%= link_to t('link.edit'), edit_report_path(report) %></td>
+          <td><%= link_to t('link.destroy'), report, method: :delete, data: { confirm: t('confirm') } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to t('link.new_report'), new_report_path %>
+
+<div class='paginate'><%= paginate @reports %><div>

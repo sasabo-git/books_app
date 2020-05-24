@@ -1,6 +1,9 @@
 en:
   confirm: Are you sure?
   notice:
-    create: Book was successfully created.
-    update: Book was successfully updated.
-    destroy: Book was successfully destroyed.
+    create: Created.
+    update: Updated.
+    destroy: Destroyed.
+  alert:
+    create: Failed to registration a data.
+    destroy: Failed to erase a data.

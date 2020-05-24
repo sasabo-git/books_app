@@ -1,0 +1,6 @@
+<h1><%= t('.editing_comment') %></h1>
+
+<%= render partial: "comments/form", locals: {commentable: @commentable, comment: @comment} %>
+
+<%= link_to t('link.back'), :back %> |
+<%= link_to t('link.destroy'), [@commentable, @comment], method: :delete, data: { confirm: t('confirm') } %>

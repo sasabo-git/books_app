@@ -1,0 +1,6 @@
+<h1><%= t('.editing_report') %></h1>
+
+<%= render 'form', report: @report %>
+
+<%= link_to t('link.back'), :back %> |
+<%= link_to t('link.destroy'), @report, method: :delete, data: { confirm: t('confirm') } %>

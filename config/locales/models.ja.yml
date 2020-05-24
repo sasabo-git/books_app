@@ -2,6 +2,8 @@ ja:
   activerecord:
     models:
       book: 本
+      report: レポート
+      comment: コメント
     attributes:
       book:
         title: 本のタイトル
@@ -14,3 +16,8 @@ ja:
         introduction: 自己紹介
         zip_code: 郵便番号
         address: 住所
+      report:
+        title: タイトル
+        body: 本文
+      comment:
+        body: コメント

@@ -94,28 +94,4 @@ class UsersTest < ApplicationSystemTestCase
       assert_text @alice.username
     end
   end
-
-  test "click sign in link and sign up link" do
-    visit root_path
-    within "header" do
-      click_on I18n.t("shared.header.sign_up")
-    end
-    assert_selector "h2", text: I18n.t("users.registrations.new.sign_up")
-
-    within "header" do
-      click_on I18n.t("shared.header.sign_in")
-    end
-    assert_selector "h2", text: I18n.t("users.sessions.new.sign_in")
-  end
-
-  test "click show link and edit link of user" do
-    login_as(@alice, scope: :user)
-    visit root_path
-    click_on I18n.t("shared.header.profile")
-    assert_text I18n.t("users.show.profile")
-
-    click_on I18n.t("shared.header.edit_profile")
-    text = I18n.t("users.registrations.edit.title", resource: "#{I18n.t('activerecord.models.user')}")
-    assert_selector "h2", text: text
-  end
 end

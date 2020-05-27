@@ -7,7 +7,6 @@ class BooksTest < ApplicationSystemTestCase
 
   setup do
     @alice = users(:alice)
-    @bob = users(:bob)
     @title = "自転車に乗ろう"
     @memo = "自転車好きな著者による自転車のススメ"
     @author = "田中一郎"
@@ -20,13 +19,13 @@ class BooksTest < ApplicationSystemTestCase
   end
 
   test "show a book" do
-    visit book_path(@locale, @alice.books.first)
-    assert_text I18n.t("books.show.book_information")
+    visit book_path(@locale, books(:alice_book))
+    assert_text books(:alice_book).title
   end
 
   test "create a book" do
     login_as(@alice, scope: :user)
-    visit new_book_path(@locale, @alice.books.first)
+    visit new_book_path(@locale)
     fill_in I18n.t("activerecord.attributes.book.title"), with: @title
     fill_in I18n.t("activerecord.attributes.book.memo"), with: @memo
     fill_in I18n.t("activerecord.attributes.book.author"), with: @author
@@ -38,7 +37,7 @@ class BooksTest < ApplicationSystemTestCase
 
   test "update a book" do
     login_as(@alice, scope: :user)
-    visit edit_book_path(@locale, @alice.books.first)
+    visit edit_book_path(@locale, books(:alice_book))
     fill_in I18n.t("activerecord.attributes.book.title"), with: @title
     fill_in I18n.t("activerecord.attributes.book.memo"), with: @memo
     fill_in I18n.t("activerecord.attributes.book.author"), with: @author
@@ -50,41 +49,18 @@ class BooksTest < ApplicationSystemTestCase
 
   test "should not update other user's book" do
     login_as(@alice, scope: :user)
-    visit edit_book_path(@locale, @bob.books.first)
+    visit edit_book_path(@locale, books(:bob_book))
     assert_text I18n.t("notice.no_authority")
   end
 
   test "delete a book" do
     login_as(@alice, scope: :user)
-    expected_be_deleted_title = Book.first.title
-    visit books_path
+    expected_be_deleted_title = books(:alice_book).title
+    visit book_path(@locale, books(:alice_book))
     accept_confirm do
-      first("tbody tr").click_link I18n.t("link.destroy")
+      click_link I18n.t("link.destroy")
     end
     assert_text I18n.t("notice.destroy")
     assert_no_text expected_be_deleted_title
-  end
-
-  test "click link of books index, show, create, edit" do
-    login_as(@alice, scope: :user)
-
-    # index link
-    visit root_path
-    click_on I18n.t("shared.header.books")
-    assert_selector "h1", text: I18n.t("activerecord.models.book")
-
-    # show link
-    first("tbody tr").click_link I18n.t("link.show")
-    assert_selector "h1", text: I18n.t("books.show.book_information")
-
-    # create link
-    visit books_path
-    click_on I18n.t("link.new_book")
-    assert_selector "h1", text: I18n.t("books.new.new_book")
-
-    # edit link
-    visit books_path
-    first("tbody tr").click_link I18n.t("link.edit")
-    assert_selector "h1", text: I18n.t("books.edit.editing_book")
   end
 end

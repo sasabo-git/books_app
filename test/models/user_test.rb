@@ -24,16 +24,9 @@ class UserTest < ActiveSupport::TestCase
     })
   end
 
-  test "username should be preferred over email address for login" do
-    assert_equal(@alice.username, @alice.login)
-    @alice.username = nil
-    assert_equal(@alice.email, @alice.login)
-  end
-
-  test "should find auth condition" do
+  test "should find by username or email" do
     assert_equal(@alice, User.find_first_by_auth_conditions({ login: @alice.username }))
-    assert_equal(@alice, User.find_first_by_auth_conditions({ email: @alice.email }))
-    assert_equal(@alice, User.find_first_by_auth_conditions({ username: @alice.username }))
+    assert_equal(@alice, User.find_first_by_auth_conditions({ login: @alice.email }))
   end
 
   test "should follow and unfollow a user" do

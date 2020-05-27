@@ -21,11 +21,7 @@ class User < ApplicationRecord
   has_many :reports, dependent: :destroy
   has_many :comments, dependent: :destroy
 
-  attr_writer :login
-
-  def login
-    @login || self.username || self.email
-  end
+  attr_accessor :login
 
   def follow(other_user)
     active_relationships.create(followed_id: other_user.id)
@@ -35,7 +31,6 @@ class User < ApplicationRecord
     active_relationships.find_by(followed_id: other_user.id).destroy
   end
 
-  # 現在のユーザーがフォローしてたらtrueを返す
   def following?(other_user)
     following.include?(other_user)
   end
@@ -49,12 +44,6 @@ class User < ApplicationRecord
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
       where(conditions).where(["lower(username) = :value OR lower(email) = :value", { value: login.downcase }]).first
-    else
-      if conditions[:username].nil?
-        where(conditions).first
-      else
-        where(username: conditions[:username]).first
-      end
     end
   end
 

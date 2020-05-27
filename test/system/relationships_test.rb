@@ -21,13 +21,13 @@ class RelationshipsTest < ApplicationSystemTestCase
   test "show following users" do
     visit following_user_path(@locale, @alice)
     assert_text I18n.t("shared.stats.following")
-    assert_text @alice.following.first.username
+    assert_text "bob"
   end
 
   test "show followers" do
     visit followers_user_path(@locale, @bob)
     assert_text I18n.t("shared.stats.followers")
-    assert_text @bob.followers.first.username
+    assert_text "alice"
   end
 
   test "alice follow carol" do
@@ -53,17 +53,5 @@ class RelationshipsTest < ApplicationSystemTestCase
 
     visit user_path(@locale, @alice)
     assert_text expected_alice_following_count.to_s + " " + I18n.t("shared.stats.following")
-  end
-
-  test "click following link" do
-    visit user_path(@locale, @alice)
-    click_on I18n.t("shared.stats.following")
-    assert_text I18n.t("shared.stats.following")
-  end
-
-  test "click follower link" do
-    visit user_path(@locale, @alice)
-    click_on I18n.t("shared.stats.followers")
-    assert_text I18n.t("shared.stats.followers")
   end
 end

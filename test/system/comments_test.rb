@@ -75,19 +75,4 @@ class CommentsTest < ApplicationSystemTestCase
     assert_text I18n.t("notice.destroy")
     assert_no_text @comment_body
   end
-
-  test "click edit link of comment" do
-    login_as(@alice, scope: :user)
-    visit book_path(@locale, @bob_book)
-    within ".comment" do
-      click_on I18n.t("link.edit")
-    end
-    assert_text I18n.t("comments.edit.editing_comment")
-
-    visit report_path(@locale, @bob_report)
-    within ".comment" do
-      click_on I18n.t("link.edit")
-    end
-    assert_text I18n.t("comments.edit.editing_comment")
-  end
 end

@@ -30,31 +30,35 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should follow and unfollow a user" do
+    assert_not_includes @alice.following, @carol
+    assert_not_includes @carol.followers, @alice
     assert_not @alice.following?(@carol)
 
     @alice.follow(@carol)
+    assert_includes @alice.following, @carol
+    assert_includes @carol.followers, @alice
     assert @alice.following?(@carol)
-    assert @carol.followers.include?(@alice)
 
     @alice.unfollow(@carol)
-    assert_not @alice.following?(@carol)
+    assert_not_includes @alice.following, @carol
+    assert_not_includes @carol.followers, @alice
   end
 
   test "feed should have the right books or the right reports" do
     # aliceはbobをフォローしている
     @bob.books.each do |book|
-      assert @alice.feed(Book).include?(book)
+      assert_includes @alice.feed(Book), book
     end
     @bob.reports.each do |report|
-      assert @alice.feed(Report).include?(report)
+      assert_includes @alice.feed(Report), report
     end
 
     # bobはaliceをフォローしていない
     @alice.books.each do |book|
-      assert_not @bob.feed(Book).include?(book)
+      assert_not_includes @bob.feed(Book), book
     end
     @alice.reports.each do |report|
-      assert_not @bob.feed(Report).include?(report)
+      assert_not_includes @bob.feed(Report), report
     end
   end
 

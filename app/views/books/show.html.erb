@@ -1,4 +1,6 @@
 <div class="book_content">
+  <h1><%= t('.book_information') %></h1>
+
   <p>
     <strong><%= User.human_attribute_name :username %>:</strong>
     <%= link_to @user.username, @book.user %>

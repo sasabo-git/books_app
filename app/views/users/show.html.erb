@@ -1,15 +1,19 @@
-<h1><%= t('.profile')%></h1>
+<div class="profile">
+  <h1><%= t('.profile')%></h1>
 
-<%= render 'shared/stats', user: @user %>
-<%= render 'follow_form', user: @user if user_signed_in? %>
+  <%= render 'shared/stats', user: @user %>
+  <%= render 'follow_form', user: @user if user_signed_in? %>
 
-<p><%= t('.name')%>: <%= @user.username %></p>
-<p>
-<%= t('.avatar')%>:</br>
-<%= image_tag @user.avatar if @user.avatar.attached? %>
-</p>
-<p><%= t('.introduction')%>: <%= @user.introduction %></p>
-<p><%= t('.zip_code')%>: <%= @user.zip %></p>
-<p><%= t('.address')%>: <%= @user.address %></p>
+  <p><%= t('.name')%>: <%= @user.username %></p>
+  <p>
+  <%= t('.avatar')%>:</br>
+  <%= image_tag @user.avatar if @user.avatar.attached? %>
+  </p>
+  <p><%= t('.introduction')%>: <%= @user.introduction %></p>
+  <p><%= t('.zip')%>: <%= @user.zip %></p>
+  <p><%= t('.address')%>: <%= @user.address %></p>
+</div>
 
-<%= link_to t('link.back'), :back %>
+<div class="link">
+  <%= link_to t('link.back'), :back %>
+</div>

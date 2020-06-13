@@ -1,0 +1,52 @@
+version: 2.1
+
+orbs:
+  ruby: circleci/ruby@1.0
+  node: circleci/node@2
+
+executors:
+  default:
+    docker:
+      - image: circleci/ruby:2.7.0-node-browsers
+        environment:
+          RAILS_ENV: test
+
+jobs:
+  rails_minitest:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
+
+      # For speed up be precompiled
+      - restore_cache:
+          keys:
+            - asset-cache-{{ arch }}-{{ .Branch }}
+            - asset-cache-
+      - run: bundle exec rails assets:precompile
+      - save_cache:
+          key: asset-cache-{{ arch }}-{{ .Branch }}-{{ epoch }}
+          paths:
+            - public/assets
+            - public/packs
+            - tmp/cache/assets/sprockets
+
+      - run:
+          name: Database setup
+          command: |
+            bundle exec rails db:create
+            bundle exec rails db:migrate
+      - run:
+          name: Rails Minitest
+          command: |
+            bundle exec rails test
+            bundle exec rails test:system
+
+workflows:
+  test:
+    jobs:
+      - rails_minitest

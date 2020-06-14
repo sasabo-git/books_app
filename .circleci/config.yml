@@ -70,4 +70,4 @@ workflows:
       - rails_minitest
       - deploy:
           requires:
-            - test 
+            - rails_minitest 

@@ -68,6 +68,6 @@ workflows:
   test_and_deploy:
     jobs:
       - rails_minitest
-      - deploy
-          requires:  
+      - deploy:
+          requires:
             - test 

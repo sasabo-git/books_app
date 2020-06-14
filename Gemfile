@@ -71,3 +71,15 @@ gem "omniauth-github", github: "omniauth/omniauth-github", branch: "master"
 
 # load environment variables from `.env`
 gem "dotenv-rails"
+
+# deploy tools
+group :development do
+  gem "capistrano", "~> 3.10", require: false
+  gem "capistrano-rails", "~> 1.3", require: false
+  gem "capistrano-rbenv"
+  gem "capistrano-bundler"
+  gem "capistrano3-puma"
+  gem "capistrano-rails-console"
+  gem "capistrano-postgresql"
+  gem "capistrano-safe-deploy-to"
+end

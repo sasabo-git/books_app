@@ -55,7 +55,6 @@ jobs:
     executor:
       name: default  
     steps:  
-      - checkout  
       - setup  
       - add_ssh_keys:  
           fingerprints:  
@@ -71,3 +70,6 @@ workflows:
       - deploy:
           requires:
             - rails_minitest 
+          filters:  
+            branches:  
+              only: master 

@@ -5,7 +5,7 @@ lock "~> 3.14.0"
 
 set :application, "books_app"
 set :repo_url, "git@github.com:sasabo-git/books_app.git"
-set :branch, "capistrano"
+set :branch, "master"
 # set :branch, ENV["BRANCH"] || "master"
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 set :user, "deploy"

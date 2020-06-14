@@ -11,16 +11,21 @@ executors:
         environment:
           RAILS_ENV: test
 
-jobs:
-  rails_minitest:
-    executor:
-      name: default
+commands:
+  setup:
     steps:
       - checkout
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
           cache-key: "yarn.lock"
+
+jobs:
+  rails_minitest:
+    executor:
+      name: default
+    steps:
+      - setup
 
       # For speed up be precompiled
       - restore_cache:
@@ -46,7 +51,23 @@ jobs:
             bundle exec rails test
             bundle exec rails test:system
 
+  deploy:  
+    executor:
+      name: default  
+    steps:  
+      - checkout  
+      - setup  
+      - add_ssh_keys:  
+          fingerprints:  
+            - 07:53:2f:d5:58:16:be:34:b4:49:f6:4b:5a:e0:47:e4
+      - deploy:  
+          name: Deploy with Capistrano  
+          command: bundle exec cap production deploy 
+
 workflows:
-  test:
+  test_and_deploy:
     jobs:
       - rails_minitest
+      - deploy
+          requires:  
+            - test 

@@ -38,7 +38,8 @@ server "www.sasabo.tk", user: "deploy", roles: %w{app db web}
 # Global options
 # --------------
 set :ssh_options, {
-   keys: %w(/Users/mbp/.ssh/client_rsa),
+   # keys: %w(/Users/mbp/.ssh/client_rsa),
+   keys: ["#{ENV.fetch('PRODUCTION_SSH_KEY')}"],
    forward_agent: true,
    auth_methods: %w(publickey),
    port: 1924,

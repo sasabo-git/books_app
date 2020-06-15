@@ -6,10 +6,21 @@ orbs:
 
 executors:
   default:
+    parallelism: 3 
     docker:
       - image: circleci/ruby:2.7.0-node-browsers
+      - image: circleci/postgres:9.5-alpine 
         environment:
-          RAILS_ENV: test
+          POSTGRES_USER: circleci-demo-ruby
+          POSTGRES_DB: books_app_test
+          POSTGRES_PASSWORD: ""
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      PGHOST: 127.0.0.1
+      PGUSER: circleci
+      PGPASSWORD: ""
+      RAILS_ENV: test
 
 commands:
   setup:
@@ -41,10 +52,11 @@ jobs:
             - tmp/cache/assets/sprockets
 
       - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
           name: Database setup
-          command: |
-            bundle exec rails db:create
-            bundle exec rails db:migrate
+          command: bundle exec rails db:schema:load --trace
       - run:
           name: Rails Minitest
           command: |

@@ -30,6 +30,7 @@ commands:
 
 jobs:
   rails_minitest:
+    parallelism: 3 
     executor:
       name: default
     steps:
